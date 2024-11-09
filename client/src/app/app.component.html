@@ -1,0 +1,29 @@
+<div class="search-container">
+  <input
+    type="text"
+    placeholder="Buscar productos..."
+    (input)="onSearch($event)"
+  />
+
+  <ul *ngIf="results$ | async as results; else loading">
+    <!-- Verificamos si hay resultados -->
+    <ng-container *ngIf="results.length > 0; else noResults">
+      <li *ngFor="let producto of results">
+        <strong>{{ producto.nombre }}</strong>
+        <p>{{ producto.email }}</p>
+        <p>{{ producto.edad }} años</p>
+        <p>{{ producto.direccion }}</p>
+      </li>
+    </ng-container>
+
+    <!-- Plantilla alternativa en caso de no haber resultados -->
+    <ng-template #noResults>
+      <li>No se encontraron resultados.</li>
+    </ng-template>
+  </ul>
+
+  <!-- Cargando... mensaje mientras se obtienen los resultados -->
+  <ng-template #loading>
+    <li>Cargando resultados...</li>
+  </ng-template>
+</div>
